@@ -1,0 +1,31 @@
+name: Deploy to Vercel
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Manual Deploy to Vercel
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+
+    - name: Deployment Status
+      run: |
+        echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "✓ Deployment to Vercel completed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Vercel Deployment Info:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Production deployment triggered manually" >> $GITHUB_STEP_SUMMARY
+        echo "- Vercel token, org ID, and project ID required in GitHub secrets" >> $GITHUB_STEP_SUMMARY
