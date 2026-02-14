@@ -10,12 +10,13 @@ on:
 jobs:
   call-ci:
     name: Call CI Pipeline
-    uses: ./.github/workflows/ci.yml
+    uses: ./.github/workflows/ci.yml@develop
+    secrets: inherit
 
   call-cd:
     name: Call CD Pipeline
     needs: call-ci
-    uses: ./.github/workflows/cd.yml
+    uses: ./.github/workflows/cd.yml@develop
     secrets: inherit
     with:
       deploy-to-prod: false
