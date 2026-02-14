@@ -60,7 +60,7 @@ export default function ProductCard({
 
         {/* DP Review */}
         <p className="text-xs text-gray-600 italic border-l-2 border-primary pl-2">
-          "{dp_review}"
+          &quot;{dp_review}&quot;
         </p>
 
         {/* Price */}

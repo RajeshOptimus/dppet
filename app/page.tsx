@@ -129,11 +129,11 @@ export default function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-              Pick Your Pup's Breed
+              Pick Your Pup&apos;s Breed
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Get curated product recommendations tailored specifically for your
-              dog's breed and needs.
+              dog&apos;s breed and needs.
             </p>
           </motion.div>
 
@@ -178,7 +178,7 @@ export default function Home() {
               <Zap className="text-primary" size={28} />
             </div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              The products that are flying off the shelves! What Dharampal's followers are loving right now.
+              The products that are flying off the shelves! What Dharampal&apos;s followers are loving right now.
             </p>
           </motion.div>
 
@@ -216,13 +216,13 @@ export default function Home() {
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Zap className="text-primary" size={24} />
                 <h2 className="text-3xl md:text-4xl font-bold text-secondary">
-                  DP's Top Picks
+                  DP&apos;s Top Picks
                 </h2>
                 <Zap className="text-primary" size={24} />
               </div>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Handpicked products that Dharampal personally recommends for
-                your furry friend's health and happiness.
+                your furry friend&apos;s health and happiness.
               </p>
             </motion.div>
 
@@ -266,7 +266,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-white text-primary font-bold rounded-2xl hover:shadow-lg transition"
             >
-              Watch Dharampal's Channel →
+              Watch Dharampal&apos;s Channel →
             </a>
           </motion.div>
         </section>

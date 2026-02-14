@@ -16,7 +16,7 @@ export default function NotFound() {
             Oops! Page Not Found
           </h1>
           <p className="text-gray-600 text-lg max-w-md mx-auto">
-            Looks like we couldn't find the page you're looking for. Maybe your
+            Looks like we couldn&apos;t find the page you&apos;re looking for. Maybe your
             pup wandered off! 🐕
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

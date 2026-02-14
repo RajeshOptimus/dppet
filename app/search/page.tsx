@@ -31,7 +31,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {query ? (
             <p className="text-gray-600 text-lg">
               Found <span className="font-bold text-primary">{results.length}</span> product{results.length !== 1 ? "s" : ""} for{" "}
-              <span className="font-bold">"{q}"</span>
+              <span className="font-bold">&quot;{q}&quot;</span>
             </p>
           ) : (
             <p className="text-gray-600 text-lg">

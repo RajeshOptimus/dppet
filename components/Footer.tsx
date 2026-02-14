@@ -17,7 +17,7 @@ export default function Footer() {
               <span className="text-xl font-bold">pet.shop</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Dharampal's Official Pet Recommendations - An indie pup with 25k+ YouTube subscribers sharing honest product reviews and dog care tips.
+              Dharampal&apos;s Official Pet Recommendations - An indie pup with 25k+ YouTube subscribers sharing honest product reviews and dog care tips.
             </p>
           </div>
 

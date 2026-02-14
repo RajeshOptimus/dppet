@@ -90,14 +90,14 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-secondary mb-3">8. Images & Content</h2>
             <p>
               All product images are sourced from Amazon or copyright-free sources 
-              (Unsplash, Pexels). Dharampal's photos are used with full rights.
+              (Unsplash, Pexels). Dharampal&apos;s photos are used with full rights.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-secondary mb-3">9. YouTube Channel</h2>
             <p>
-              dppet.shop links to Dharampal's YouTube channel. YouTube's own privacy policy applies to content there. 
+              dppet.shop links to Dharampal&apos;s YouTube channel. YouTube&apos;s own privacy policy applies to content there. 
               All YouTube product reviews include affiliate disclosures per FTC guidelines.
             </p>
           </section>
@@ -122,7 +122,7 @@ export default function PrivacyPolicy() {
             </p>
             <p>
               Email: privacy@dppet.shop<br />
-              YouTube: Dharampal's Channel
+              YouTube: Dharampal&apos;s Channel
             </p>
           </section>
 
