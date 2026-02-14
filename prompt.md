@@ -1,6 +1,5 @@
 # Role: Senior Next.js Developer & SEO Specialist
 # Project: dppet.shop (Dharampal's Official Pet Recommendations)
-
 ## 1. Executive Summary
 Build a premium, high-performance affiliate marketing platform for dog products. 
 - **Domain:** dppet.shop
