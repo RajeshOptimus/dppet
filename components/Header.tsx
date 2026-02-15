@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X, Search, Youtube } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -16,8 +16,27 @@ const breeds = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isBreedOpen, setIsBreedOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const breedRef = useRef<HTMLDivElement>(null);
+
+  // Close breed dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        breedRef.current &&
+        !breedRef.current.contains(event.target as Node)
+      ) {
+        setIsBreedOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +54,7 @@ export default function Header() {
       className="sticky top-0 z-50 bg-white shadow-md"
     >
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-white rounded-full w-10 h-10 flex items-center justify-center">
@@ -48,23 +68,36 @@ export default function Header() {
           <Link href="/" className="hover:text-primary transition">
             Home
           </Link>
-          <div className="group relative">
-            <button className="hover:text-primary transition">Breeds</button>
-            <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-2xl py-2 mt-2 min-w-48">
-              {breeds.map((breed) => (
-                <Link
-                  key={breed.slug}
-                  href={`/breeds/${breed.slug}`}
-                  className="block px-4 py-2 hover:bg-orange-50 text-secondary"
-                >
-                  {breed.name}
-                </Link>
-              ))}
-            </div>
+
+          {/* Breeds Dropdown */}
+          <div className="relative" ref={breedRef}>
+            <button
+              onClick={() => setIsBreedOpen(!isBreedOpen)}
+              className="hover:text-primary transition"
+            >
+              Breeds
+            </button>
+
+            {isBreedOpen && (
+              <div className="absolute mt-3 bg-white shadow-lg rounded-2xl py-2 min-w-48 z-50">
+                {breeds.map((breed) => (
+                  <Link
+                    key={breed.slug}
+                    href={`/breeds/${breed.slug}`}
+                    onClick={() => setIsBreedOpen(false)}
+                    className="block px-4 py-2 hover:bg-orange-50 text-secondary"
+                  >
+                    {breed.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
+
           <Link href="/" className="hover:text-primary transition">
             Best Sellers
           </Link>
+
           <a
             href="https://youtube.com/@farmingzilla?si=W8CnUpkLhXE9raIe"
             target="_blank"
@@ -104,30 +137,33 @@ export default function Header() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
             className="absolute top-16 left-0 right-0 bg-white shadow-lg md:hidden"
           >
             <div className="flex flex-col gap-4 p-4">
-              <Link href="/" className="text-secondary hover:text-primary">
+              <Link href="/" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
+
               {breeds.map((breed) => (
                 <Link
                   key={breed.slug}
                   href={`/breeds/${breed.slug}`}
-                  className="text-secondary hover:text-primary ml-4"
+                  onClick={() => setIsOpen(false)}
+                  className="ml-4"
                 >
                   {breed.name}
                 </Link>
               ))}
-              <Link href="/" className="text-secondary hover:text-primary">
+
+              <Link href="/" onClick={() => setIsOpen(false)}>
                 Best Sellers
               </Link>
+
               <a
                 href="https://youtube.com/@farmingzilla?si=W8CnUpkLhXE9raIe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary hover:text-primary flex items-center gap-1"
+                className="flex items-center gap-1"
               >
                 <Youtube size={18} />
                 YouTube

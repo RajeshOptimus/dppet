@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -11,32 +12,57 @@ interface PageProps {
   }>;
 }
 
-const breedInfo: { [key: string]: { name: string; description: string } } = {
+const breedInfo: {
+  [key: string]: {
+    name: string;
+    description: string;
+    review: string;
+  };
+} = {
   indie: {
     name: "Indie",
     description:
-      "Street-smart and resilient, Indie dogs are known for their adaptability and incredible stamina. They thrive with simple, nutritious food and minimal grooming.",
+      "Street-smart and resilient, Indie dogs are known for their adaptability and incredible stamina.",
+    review:
+      "Indie dogs are highly intelligent, low-maintenance, and extremely adaptable to Indian climates. They have strong immunity and thrive on balanced, simple nutrition. Dharampal personally recommends products that support their energy levels, digestion, and coat health while keeping things natural and affordable.",
   },
   "golden-retriever": {
     name: "Golden Retriever",
     description:
-      "Friendly and energetic, Golden Retrievers need high-quality nutrition to maintain their beautiful coats. They're perfect family companions!",
+      "Friendly and energetic, Golden Retrievers need high-quality nutrition.",
+    review:
+      "Golden Retrievers are affectionate and energetic family companions. They require premium nutrition to maintain their beautiful coat and joint health. Dharampal selects products that support coat shine, immunity, and active lifestyles.",
   },
   labrador: {
     name: "Labrador",
     description:
-      "Strong and loyal, Labs are food-motivated and need balanced nutrition to maintain their athletic build.",
+      "Strong and loyal, Labs are food-motivated and athletic.",
+    review:
+      "Labradors are playful, food-loving, and energetic. Proper portion control and balanced nutrition are key. Dharampal recommends products that help maintain lean muscle mass and digestive health.",
   },
   "german-shepherd": {
     name: "German Shepherd",
     description:
-      "Intelligent and powerful, GSDs need premium nutrition and proper training tools for optimal health.",
+      "Intelligent and powerful working dogs.",
+    review:
+      "German Shepherds are highly intelligent and protective. They require premium nutrition and strong training tools. Dharampal recommends products that support joint strength and muscle development.",
   },
   beagle: {
     name: "Beagle",
     description:
-      "Small but mighty, Beagles have big appetites and need properly portioned, high-quality food.",
+      "Small but mighty with big appetites.",
+    review:
+      "Beagles are curious and energetic scent hounds. They need properly portioned meals and mental stimulation. Dharampal selects products that support digestion and healthy weight management.",
   },
+};
+
+/* ✅ Breed Image Mapping */
+const breedImages: { [key: string]: string } = {
+  indie: "/images/dharampal1.webp",
+  "golden-retriever": "/images/golden.webp",
+  labrador: "/images/labrador.webp",
+  "german-shepherd": "/images/german.webp",
+  beagle: "/images/beagle.webp",
 };
 
 async function getBreedProducts(
@@ -46,27 +72,14 @@ async function getBreedProducts(
   const filtered = getProductsByBreed(breedName);
 
   return {
-    products: filtered.length > 0 ? filtered : getProductsByBreed("Indie").slice(0, 3),
-    breedInfo: breedInfo[slug] || { name: "Dog", description: "" },
-  };
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const breed = breedInfo[slug];
-
-  if (!breed) {
-    return {
-      title: "Breed Not Found",
-    };
-  }
-
-  return {
-    title: `Best Products for ${breed.name} | dppet.shop`,
-    description: `DP Approved products and recommendations for ${breed.name}. Find the best dog food, toys, and accessories.`,
-    openGraph: {
-      title: `Best Products for ${breed.name} | dppet.shop`,
-      description: `DP Approved products for ${breed.name}`,
+    products:
+      filtered.length > 0
+        ? filtered
+        : getProductsByBreed("Indie").slice(0, 3),
+    breedInfo: breedInfo[slug] || {
+      name: "Dog",
+      description: "",
+      review: "",
     },
   };
 }
@@ -91,36 +104,56 @@ export default async function BreedPage({ params }: PageProps) {
       <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12">
-        {/* Breed Header */}
-        <div className="mb-12 space-y-6">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-3">
-              Best Products for {breed.name}
-            </h1>
-            <p className="text-gray-600 text-lg max-w-2xl">
-              {breed.description}
-            </p>
-          </div>
 
-          {/* Expert Advice Section */}
+        {/* Breed Review Section */}
+        <section className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+            {/* LEFT TEXT */}
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-secondary">
+                {breed.name} Breed Review 🐾
+              </h1>
+
+              <p className="text-gray-600 text-lg leading-relaxed">
+                {breed.review}
+              </p>
+            </div>
+
+            {/* RIGHT IMAGE (Dynamic) */}
+            <div className="relative h-[300px] sm:h-[400px] md:h-[450px] rounded-3xl overflow-hidden">
+              <Image
+                src={breedImages[slug] || "/images/dharampal1.webp"}
+                alt={`${breed.name} dog`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Expert Advice Section */}
+        <section className="mb-12">
           <div className="bg-gradient-to-r from-primary/10 to-orange-100 border-l-4 border-primary p-6 rounded-2xl">
             <h3 className="font-bold text-secondary text-lg mb-2">
               Why Dharampal Recommends These for {breed.name}
             </h3>
             <p className="text-gray-700">
-              Based on extensive experience with {breed.name} dogs, Dharampal
-              has carefully selected products that match their unique needs,
-              energy levels, and temperament. Each recommendation is verified
-              through real-world testing.
+              Based on real-world experience with {breed.name} dogs, Dharampal
+              selects products that match their temperament, nutrition needs,
+              and energy levels. Every recommendation is personally tested and
+              verified.
             </p>
           </div>
-        </div>
+        </section>
 
         {/* Products Grid */}
-        <div>
+        <section>
           <h2 className="text-2xl font-bold text-secondary mb-8">
             Verified DP Approved Products
           </h2>
+
           {products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {products.map((product) => (
@@ -134,7 +167,7 @@ export default async function BreedPage({ params }: PageProps) {
               </p>
             </div>
           )}
-        </div>
+        </section>
 
         {/* JSON-LD Schema */}
         <script
